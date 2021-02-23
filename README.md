@@ -8,3 +8,11 @@ This will require modifying the `server.js` file and the `website/app.js` file. 
 
 ## Extras
 If you are interested in testing your code as you go, you can use `tests.js` as a template for writing and running some basic tests for your code.
+
+## How to use
+> Install Node.js from terminal
+> Install package express
+> Install package body-parser 
+> Install package Cors
+> Go to the installation directory on the console and run the server code. In this case node server.js
+> The server will start on port 3000

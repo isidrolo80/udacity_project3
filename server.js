@@ -17,14 +17,12 @@ myapp.use(express.static('weather'));
 
 
 
-
-
 // Setup Server
-const port = 8080;
-const server = myapp.listen(port, listening);
+const localPort = 8080;
+const server = myapp.listen(localPort, startServer);
 
-function listening() {
-	   console.log('My node server is up locally on port '+port);
+function startServer() {
+	   console.log('My node server is up locally on port '+localPorts);
 }
 
 
@@ -36,6 +34,7 @@ function getAllData (req, res) {
   //we send as a response the data variable
   res.send(data);
 };
+
 
 
 // These are my POST routes to test and add data 

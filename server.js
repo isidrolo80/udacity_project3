@@ -1,64 +1,58 @@
-// Setup empty JS object to act as endpoint for all routes
-projectData = {};
-const data = [];
-// Require Express to run server and routes
+// Setup all dependencies and app 
+let data = [];
+// Import dependencies
 const express = require('express');
-
-
-// Start up an instance of app
-const app = express();
-
-
-/* Middleware*/
-//Here we are configuring express to use body-parser as middle-ware.
-const bodyParser = require('body-parser')
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-// Cors for cross origin allowance
+// We create instance of the app to use Express
+const myapp = express();
+//Confiture express to use body-parser 
+const body_Parser = require('body-parser')
+myapp.use(body_Parser.urlencoded({ extended: false }));
+myapp.use(body_Parser.json());
+// We setup cors to be able to allow cross origin
 const cors = require('cors');
-app.use(cors());
+myapp.use(cors());
+// Use the following folder as our main=
+myapp.use(express.static('weather'));
 
-// Initialize the main project folder
-app.use(express.static('website'));
+
+
+
 
 
 // Setup Server
-const port = 3000;
-const server = app.listen(port, listening);
+const port = 8080;
+const server = myapp.listen(port, listening);
 
-	function listening() {
-	    console.log('Running on port '+port);
-	}
+function listening() {
+	   console.log('My node server is up locally on port '+port);
+}
 
 
 
-// GET route that retuns projectData
-app.get('/all', sendData);
+// We create a route to GET all data
+myapp.get('/getAllData', getAllData);
 
-function sendData (request, response) {
-  response.send(data);
+function getAllData (req, res) {
+  //we send as a response the data variable
+  res.send(data);
 };
 
 
-// POST route
-app.post('/add', callBack);
+// These are my POST routes to test and add data 
+// Route to add data sent from the website. The route and callback function have the same name
+myapp.post('/pushNewData', pushNewData);
 
-function callBack(req,res){
-  res.send('POST received');
-};
-
-app.post('/addData', addData);
-
-function addData (req,res){
-	newEntry = {
+function pushNewData (req,res){
+	dataToBePushed = {
 		temperature: req.body.temperature,
 		date: req.body.date,
-		userResponse: req.body.userResponse
+		myfeeligs: req.body.myfeeligs
 	}
 
-    data.push(newEntry);
+    data.push(dataToBePushed);
+    //Sends the last data entered as response
     res.send(data);
+    // Test on the server console the data pushed to the server
     console.log("My project data: ");
     console.log(data);
 };

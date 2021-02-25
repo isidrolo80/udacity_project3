@@ -1,11 +1,9 @@
 /* Global Variables */
 let myOpenWeatherMapAPIKey = "ea3ab8e55606cf6bd6983f2eaf2387aa";
-let cityName = "33155";
 let api_baseURL = "https://api.openweathermap.org/data/2.5/weather?zip=";
-
-// Create a new date instance dynamically with JS
-let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+//Create date variable to use at updateUI
+let todaysDate = new Date();
+let myDate = todaysDate.getMonth()+'.'+ todaysDate.getDate()+'.'+ todaysDate.getFullYear();
 
 // Async POST
 const postData = async ( url = '', data = {})=>{
@@ -28,8 +26,8 @@ const postData = async ( url = '', data = {})=>{
 };
 
 
-//Async - GET
-const retrieveData = async (base_url=api_baseURL, zipCode=document.getElementById("zip").value, personalAPIKey = myOpenWeatherMapAPIKey) =>{ 
+//retrieve all the data
+const retrieveData = async (base_url=api_baseURL, zipCode=document.getElementById("zipcode").value, personalAPIKey = myOpenWeatherMapAPIKey) =>{ 
   let url = base_url+zipCode+"&appid="+personalAPIKey;
   const request = await fetch(url);
   try {
@@ -40,29 +38,28 @@ const retrieveData = async (base_url=api_baseURL, zipCode=document.getElementByI
   }
   catch(error) {
     console.log("error", error);
-    // appropriately handle the error
   }
 };
 
 //EventListener for the element with ID generate 
-document.getElementById("generate").addEventListener("click", functionToRunOnClickGenerate);
+document.getElementById("submit").addEventListener("click", functionToRunOnClickGenerate);
 
 function functionToRunOnClickGenerate() {
 	retrieveData().then(function(allData){
-	postData('/addData', {temperature: allData.main.temp, date: newDate, userResponse: document.getElementById("feelings").value})
+	postData('/pushNewData', {temperature: allData.main.temp, date: myDate, myfeeligs: document.getElementById("mood").value})
 	updateUI();
 });
 }
 
 const updateUI = async () => {
-	const request = await fetch('/all')
+	const request = await fetch('/getAllData')
 	try {
 		const allData = await request.json();
 		console.log(allData);
 		var highest = allData[ Object.keys(allData).sort().pop() ];
-		document.getElementById("date").innerHTML = highest.date;
-		document.getElementById("temp").innerHTML = highest.temperature;
-		document.getElementById("content").innerHTML = highest.userResponse;
+		document.getElementById("date").innerHTML = "<p><b>Date: </b>"+highest.date+"</p>";
+		document.getElementById("temperature").innerHTML = "<p><b>Temperature: </b>"+highest.temperature+"</p>";
+		document.getElementById("myfeeligs").innerHTML = "<p><b>I'm feeling: </b>"+highest.myfeeligs+"</p>";
 
 	} catch(error) {
 		console.log("error", error);

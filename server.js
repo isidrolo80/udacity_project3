@@ -22,7 +22,7 @@ const localPort = 8080;
 const server = myapp.listen(localPort, startServer);
 
 function startServer() {
-	   console.log('My node server is up locally on port '+localPorts);
+	   console.log('My node server is up locally on port '+localPort);
 }
 
 

@@ -3,7 +3,7 @@ const myOpenWeatherMapAPIKey = "ea3ab8e55606cf6bd6983f2eaf2387aa";
 let api_baseURL = "https://api.openweathermap.org/data/2.5/weather?zip=";
 //Create date variable to use at updateUI
 let todaysDate = new Date();
-let myDate = todaysDate.getMonth()+'.'+ todaysDate.getDate()+'.'+ todaysDate.getFullYear();
+let myDate = (todaysDate.getMonth()+1)+'.'+ todaysDate.getDate()+'.'+ todaysDate.getFullYear(); // +1 is used as the regular format for dates is 0 - 11 instead of 1 - 12 
 
 // Async POST
 const postData = async ( url = '', data = {})=>{

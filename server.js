@@ -1,5 +1,7 @@
 // Setup all dependencies and app 
-let data = [];
+//We have an object to store the information and an array of objects. 
+let data = {};
+let myNewData = [];
 // Import dependencies
 const express = require('express');
 // We create instance of the app to use Express
@@ -42,16 +44,16 @@ function getAllData (req, res) {
 myapp.post('/pushNewData', pushNewData);
 
 function pushNewData (req,res){
-	dataToBePushed = {
-		temperature: req.body.temperature,
-		date: req.body.date,
-		myfeeligs: req.body.myfeeligs
-	}
+	
+		data.temp = req.body.temp;
+		data.date =  req.body.date;
+		data.content = req.body.content;
+	
 
-    data.push(dataToBePushed);
+    myNewData.push({data: data});
     //Sends the last data entered as response
     res.send(data);
     // Test on the server console the data pushed to the server
     console.log("My project data: ");
-    console.log(data);
+    console.log(myNewData);
 };

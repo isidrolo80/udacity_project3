@@ -21,24 +21,24 @@
 
 	<div class="row">
 		<div class="col-md-6">
-		<input style="width: 100%" type="text" name="zipcode" id="zipcode" placeholder="ZipCode to get the temperature of">
+		<input style="width: 100%" type="text" name="zipcode" id="zip" placeholder="ZipCode to get the temperature of">
 		</div>
 		<div class="col-md-6">
-		<input style="width: 100%" type="text" name="mood" id="mood" placeholder="How are you feeling today?">
+		<input style="width: 100%" type="text" name="mood" id="feelings" placeholder="How are you feeling today?">
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-md-12">
-			<button style="height: 30px; margin-top: 10px" id="submit" type="submit" class="btn btn-primary"> Get The weather Using an API </button>
+			<button style="height: 30px; margin-top: 10px" id="generate" type="submit" class="btn btn-primary"> Get The weather Using an API </button>
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="col-md-12">
-			<div id="temperature"></div>
+	<div class="row"">
+		<div class="col-md-12" id="entryHolder">
+			<div id="temp"></div>
 			<div id="date"></div>
-			<div id="myfeeligs"></div>
+			<div id="content"></div>
 		</div>		
 	</div>
 	
